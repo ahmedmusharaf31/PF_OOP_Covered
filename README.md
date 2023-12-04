@@ -16,7 +16,7 @@ Welcome to the PF_OOP_Covered repository! 🌟 This repository is a comprehensiv
 
 In this repository, I've delved into the world of Object-Oriented Programming in C++. From the fundamentals of classes and objects to advanced concepts like inheritance and polymorphism, this repository serves as a resource for anyone wanting to strengthen their understanding of OOP principles.
 
-## Topics Covered
+## Topics Covered 👨‍💻
 
 - **Classes and Objects**: Basic building blocks of OOP.
 - **Inheritance**: Understanding how classes can inherit properties and behaviors.
