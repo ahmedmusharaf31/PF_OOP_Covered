@@ -1,0 +1,70 @@
+CREATE TABLE CATEGORY_TABLE
+(CATEGORY_ID INT PRIMARY KEY, NAME VARCHAR(255));
+
+CREATE TABLE PRODUCT_TABLE
+(PRODUCT_ID INT PRIMARY KEY, NAME VARCHAR(255), CATEGORY_ID INT, 
+FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY_TABLE(CATEGORY_ID), PRICE NUMERIC(10,2), QUANTITY_IN_STOCK INT);
+
+INSERT INTO CATEGORY_TABLE (CATEGORY_ID, NAME) VALUES
+(1, 'Electronics'),
+(2, 'Clothing'),
+(3, 'Home Appliances'),
+(4, 'Books'),
+(5, 'Furniture'),
+(6, 'Toys'),
+(7, 'Sports Equipment'),
+(8, 'Beauty'),
+(9, 'Kitchenware'),
+(10, 'Garden Supplies');
+
+
+INSERT INTO PRODUCT_TABLE (PRODUCT_ID, NAME, CATEGORY_ID, PRICE, QUANTITY_IN_STOCK) VALUES
+(1, 'Laptop', 1, 1200.00, 20),
+(2, 'Smartphone', 1, 800.00, 30),
+(3, 'T-shirt', 2, 25.99, 100),
+(4, 'Jeans', 2, 45.99, 50),
+(5, 'Refrigerator', 3, 1500.00, 15),
+(6, 'Microwave', 3, 200.00, 25),
+(7, 'Harry Potter', 4, 12.50, 200),
+(8, 'Lord of the Rings', 4, 15.99, 150),
+(9, 'Coffee Maker', 3, 50.00, 30),
+(10, 'Vacuum Cleaner', 3, 120.00, 40);
+
+UPDATE PRODUCT_TABLE SET PRICE=112.85 WHERE PRODUCT_ID=3;
+
+SELECT * FROM PRODUCT_TABLE;
+
+-- adding not null constraint on a column
+ALTER TABLE PRODUCT_TABLE ALTER COLUMN PRICE SET NOT NULL;
+
+-- alter the table and enforce unique constraint on product_id and name
+ALTER TABLE PRODUCT_TABLE ADD CONSTRAINT unique_product UNIQUE (product_id,name);
+
+UPDATE PRODUCT_TABLE SET NAME='T-shirt' WHERE PRODUCT_ID=3;
+
+ALTER TABLE PRODUCT_TABLE ADD CONSTRAINT check_price check(price>0);
+
+-- alter the table and delete all products whose quantity_in_stock is less than or equal to 0
+UPDATE PRODUCT_TABLE SET QUANTITY_IN_STOCK=0 WHERE PRODUCT_ID=3;
+
+DELETE FROM PRODUCT_TABLE WHERE QUANTITY_IN_STOCK<=0;
+
+SELECT p.*,c.name AS Catrogry_Name
+FROM Product_Table p
+JOIN Category_Table c ON p.category_id=c.category_id;
+
+SELECT * FROM PRODUCT_TABLE;
+
+SELECT CATEGORY_ID, COUNT(*) AS NUM_OF_PRODUCTS
+FROM PRODUCT_TABLE
+GROUP BY CATEGORY_ID
+ORDER BY NUM_OF_PRODUCTS DESC;
+
+ALTER TABLE CATEGORY_TABLE ADD CONSTRAINT unique_categoryname UNIQUE (NAME);
+
+ALTER TABLE PRODUCT_TABLE ALTER COLUMN PRICE DROP NOT NULL;
+
+ALTER TABLE PRODUCT_TABLE DROP CONSTRAINT product_table_category_id_fkey;
+
+DROP TABLE PRODUCT_TABLE;
+DROP TABLE CATEGORY_TABLE; 
